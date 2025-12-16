@@ -14,12 +14,12 @@ class TestSmartRoom(unittest.TestCase):
     def test_check_room_is_occupied(self, infrared: Mock):
         smartroom = SmartRoom()
         infrared.return_value = True
-        smartroom.check_room_occupancy()
-        self.assertTrue(smartroom.INFRARED_PIN)
+        outcome = smartroom.check_room_occupancy()
+        self.assertTrue(outcome)
 
     @patch.object(GPIO, "input")
     def test_check_room_is_not_occupied(self, infrared: Mock):
         smartroom = SmartRoom()
         infrared.return_value = False
-        smartroom.check_room_occupancy()
-        self.assertFalse(smartroom.INFRARED_PIN)
+        outcome = smartroom.check_room_occupancy()
+        self.assertFalse(outcome)
