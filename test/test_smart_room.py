@@ -11,6 +11,8 @@ from mock.senseair_s8 import SenseairS8
 class TestSmartRoom(unittest.TestCase):
 
     @patch.object(GPIO, "input")
-    def test_something(self, mock_object: Mock):
-        # This is an example of test where I want to mock the GPIO.input() function
-        pass
+    def test_check_room_is_occupied(self, infrared: Mock):
+        smartroom = SmartRoom()
+        infrared.return_value = True
+        smartroom.check_room_occupancy()
+        self.assertTrue(smartroom.INFRARED_PIN)
