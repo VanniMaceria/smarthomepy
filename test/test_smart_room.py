@@ -37,3 +37,16 @@ class TestSmartRoom(unittest.TestCase):
         photoresistor.return_value = False
         outcome = smartroom.check_enough_light()
         self.assertFalse(outcome)
+
+    @patch.object(GPIO, "input")
+    @patch.object(GPIO, "input")
+    @patch.object(GPIO, "output")
+    def test_check_is_light_bulb_turned_on(self, light_bulb: Mock, infrared: Mock, photoresistor: Mock):
+        smartroom = SmartRoom()
+        infrared.return_value = True
+        photoresistor.return_value = False
+        smartroom.light_on = False  # per sicurezza
+        smartroom.manage_light_level()
+        self.assertTrue(smartroom.light_on)
+        light_bulb.assert_called_once_with(smartroom.LED_PIN, True)
+
